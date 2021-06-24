@@ -8,8 +8,8 @@
 #include <fstream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "/Users/Mi³osz/source/repos/openglV3/glm/glm/glm.hpp"
-#include "/Users/Mi³osz/source/repos/openglV3/glm/glm/gtx/transform.hpp"
+#include "engine v0.01/Vendor/glm/glm/glm.hpp"
+#include "engine v0.01/Vendor/glm/glm/gtx/transform.hpp"
 
 
 void glClearError();

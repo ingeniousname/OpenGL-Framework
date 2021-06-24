@@ -13,44 +13,62 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Pliki źródłowe\App">
+      <UniqueIdentifier>{b53b2095-404d-463a-80b7-7652bdf097d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Renderer">
+      <UniqueIdentifier>{3a2df05a-5643-4116-bbc6-315ca22ddf5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Shader">
+      <UniqueIdentifier>{b14a5b59-56ca-439c-b06a-6b6b5a820c26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Texture">
+      <UniqueIdentifier>{13624e97-bea3-40f1-a75f-7eeb07bca43b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Pliki źródłowe\App</Filter>
+    </ClCompile>
     <ClCompile Include="App\App.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader\Shader.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\Renderer.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\App</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\SpriteRenderer.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="Texture\Texture.cpp">
+      <Filter>Pliki źródłowe\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\Shader.cpp">
+      <Filter>Pliki źródłowe\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\App.h">
-      <Filter>Pliki źródłowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader\Shader.h">
-      <Filter>Pliki źródłowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\Renderer.h">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\App</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\SpriteRenderer.h">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture\Texture.h">
+      <Filter>Pliki źródłowe\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\Shader.h">
+      <Filter>Pliki źródłowe\Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App\ColorFragment.fs">
-      <Filter>Pliki źródłowe</Filter>
+    <None Include="Shader\ColorFragment.fs">
+      <Filter>Pliki źródłowe\Shader</Filter>
     </None>
-    <None Include="App\ColorVertex.vs">
-      <Filter>Pliki źródłowe</Filter>
+    <None Include="Shader\ColorVertex.vs">
+      <Filter>Pliki źródłowe\Shader</Filter>
+    </None>
+    <None Include="Shader\TextureFragment.fs">
+      <Filter>Pliki źródłowe\Shader</Filter>
+    </None>
+    <None Include="Shader\TextureVertex.vs">
+      <Filter>Pliki źródłowe\Shader</Filter>
     </None>
   </ItemGroup>
 </Project>
