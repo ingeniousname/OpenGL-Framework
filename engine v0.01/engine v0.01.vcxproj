@@ -19,21 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App.cpp" />
+    <ClCompile Include="App\App.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="Renderer\Renderer.cpp" />
+    <ClCompile Include="Renderer\SpriteRenderer.cpp" />
+    <ClCompile Include="Shader\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="App\App.h" />
+    <ClInclude Include="Renderer\Renderer.h" />
+    <ClInclude Include="Renderer\SpriteRenderer.h" />
+    <ClInclude Include="Shader\Shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ColorFragment.fs" />
-    <None Include="ColorVertex.vs" />
+    <None Include="App\ColorFragment.fs" />
+    <None Include="App\ColorVertex.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Miłosz\Desktop\inf\GLEW\glew-2.1.0\include;C:\Users\Miłosz\Desktop\inf\GLFW\glfw-3.3.2.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Miłosz\Desktop\inf\GLEW\glew-2.1.0\include;C:\Users\Miłosz\Desktop\inf\GLFW\glfw-3.3.2.bin.WIN64\include;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Miłosz\Desktop\inf\GLEW\glew-2.1.0\include;C:\Users\Miłosz\Desktop\inf\GLFW\glfw-3.3.2.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Miłosz\Desktop\inf\GLEW\glew-2.1.0\include;C:\Users\Miłosz\Desktop\inf\GLFW\glfw-3.3.2.bin.WIN64\include;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,7 +136,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Miłosz\Desktop\inf\GLEW\glew-2.1.0\include;C:\Users\Miłosz\Desktop\inf\GLFW\glfw-3.3.2.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Miłosz\Desktop\inf\GLEW\glew-2.1.0\include;C:\Users\Miłosz\Desktop\inf\GLFW\glfw-3.3.2.bin.WIN64\include;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,7 +155,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Miłosz\Desktop\inf\GLEW\glew-2.1.0\include;C:\Users\Miłosz\Desktop\inf\GLFW\glfw-3.3.2.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Miłosz\Desktop\inf\GLEW\glew-2.1.0\include;C:\Users\Miłosz\Desktop\inf\GLFW\glfw-3.3.2.bin.WIN64\include;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

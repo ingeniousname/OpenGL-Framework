@@ -23,7 +23,7 @@ App::App(int width, int height, const char* name) : width(width), height(height)
 
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f);
 
-	color_shader = Shader(std::vector<std::string>{"ColorVertex.vs", "ColorFragment.fs"}, std::vector<unsigned int>{GL_VERTEX_SHADER, GL_FRAGMENT_SHADER});
+	color_shader = Shader(std::vector<std::string>{"Shader/ColorVertex.vs", "Shader/ColorFragment.fs"}, std::vector<unsigned int>{GL_VERTEX_SHADER, GL_FRAGMENT_SHADER});
 	color_shader.bind();
 	color_shader.setUniformMat4fv("projection", projection);
 	
