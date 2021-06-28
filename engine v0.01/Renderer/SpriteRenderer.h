@@ -1,6 +1,7 @@
 #pragma once
 #include "engine v0.01/Shader/Shader.h"
 #include "engine v0.01/Texture/Texture.h"
+#include "DrawRequest.h"
 
 
 class SpriteRenderer
@@ -12,5 +13,7 @@ public:
 	~SpriteRenderer();
 	void draw(glm::vec2 position, glm::vec2 scale, glm::vec3 color, float rotation = 0.0f);
 	void draw(Texture &texture, glm::vec2 position, glm::vec2 scale, glm::vec3 color, float rotation = 0.0f);
+	void draw(Texture* texture, glm::mat4x4 model, glm::vec3 color, int textureCount, int currTexture);
+	void draw(DrawRequest request);
 };
 

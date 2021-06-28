@@ -94,3 +94,35 @@ void SpriteRenderer::draw(Texture& texture, glm::vec2 position, glm::vec2 scale,
 	Call(glDrawArrays(GL_TRIANGLES, 0, 6));
 	glBindVertexArray(0);
 }
+
+void SpriteRenderer::draw(Texture* texture, glm::mat4x4 model, glm::vec3 color, int textureCount, int currTexture)
+{
+	textureShader->bind();
+	textureShader->setUniformMat4fv("model", model);
+	textureShader->setUniform3f("color", color);
+
+	glActiveTexture(GL_TEXTURE0);
+	texture->bind();
+
+	Call(glBindVertexArray(VAO));
+	Call(glDrawArrays(GL_TRIANGLES, 0, 6));
+	glBindVertexArray(0);
+}
+
+void SpriteRenderer::draw(DrawRequest request)
+{
+	glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
+
+	textureShader->bind();
+	textureShader->setUniformMat4fv("model", request.model);
+	textureShader->setUniform1i("currTexture", request.currTexture);
+	textureShader->setUniform1i("textureCount", request.textureCount);
+
+
+	glActiveTexture(GL_TEXTURE0);
+	request.texture->bind();
+
+	Call(glBindVertexArray(VAO));
+	Call(glDrawArrays(GL_TRIANGLES, 0, 6));
+	glBindVertexArray(0);
+}

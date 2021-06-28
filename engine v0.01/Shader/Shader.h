@@ -31,6 +31,7 @@ public:
 	Shader(const std::vector<std::string>& filepaths, const std::vector<unsigned int>& types);
 	void bind() const;
 	void unbind() const;
+	void setUniform1i(const std::string& name, int v0);
 	void setUniform1f(const std::string& name, float v0);
 	void setUniform3f(const std::string& name, glm::vec3 v);
 	void setUniform4f(const std::string& name, glm::vec4 v);

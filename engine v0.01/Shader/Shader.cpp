@@ -47,6 +47,12 @@ void Shader::unbind() const
     Call(glUseProgram(0));
 }
 
+void Shader::setUniform1i(const std::string& name, int v0)
+{
+    bind();
+    Call(glUniform1i(GetUniformLocation(name), v0));
+}
+
 void Shader::setUniform4f(const std::string& name, glm::vec4 v)
 {
     bind();

@@ -1,9 +1,13 @@
 #include <iostream>
-#include "engine v0.01/App/App.h"
+#include "App/App.h"
+#include "engine v0.01/Clock/Clock.h"
+#include "engine v0.01/Entity/Entity.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
 const float ASPECT_RATIO = (float)WIDTH / (float)HEIGHT;
+
+const double MILISECONDS_PER_UPDATE = double(100) / double(60);
 
 
 void clear(float r, float g, float b, float a)
@@ -23,7 +27,6 @@ int main()
 		std::cout << "error with the window creation" << std::endl;
 	}
 	Call(glfwMakeContextCurrent(window));
-	double curr_time = glfwGetTime();
 
 	GLenum status = glewInit();
 	if (status != GLEW_OK)
@@ -36,7 +39,15 @@ int main()
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(WIDTH), static_cast<float>(HEIGHT), 0.0f, -1.0f, 1.0f);
 	SpriteRenderer renderer(projection);
 
-	Texture tex1("creeper.png");
+	Texture tex1("tetris.png");
+
+	int FPS_counter = 0;
+	int update_counter = 0;
+	double lag = 0;
+	Clock tick_clock, FPS_clock;
+	std::queue<DrawRequest> drawQueue;
+
+	Entity tetrimino(glm::vec2(100.0f, 100.0f), glm::vec2(30.0f, 30.0f), 0.0f, &tex1, 2, 0);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -46,16 +57,39 @@ int main()
 		glViewport(0, 0, *width, *height);
 
 
-		double time = glfwGetTime();
+
+		lag += tick_clock.getTime();
+		tick_clock.reset();
+		do
+		{
+			lag -= MILISECONDS_PER_UPDATE;
+			update_counter++;
+		} while (lag >= MILISECONDS_PER_UPDATE);
+
+		tetrimino.sendDrawRequest(drawQueue);
+
 		clear(0.0f, 255.0f, 255.0f, 1.0f);
+		//renderer.draw(tex1, glm::vec2(100.0f, 100.0f), glm::vec2(200.0f, 100.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+		while (!drawQueue.empty())
+		{
+			renderer.draw(drawQueue.front());
+			drawQueue.pop();
+		}
 
-
-
-		renderer.draw(tex1, glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 100.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-		curr_time = time;
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
+
+
+		if (FPS_clock.getTime() > 1000.0f)
+		{
+			std::cout << "FPS: " << FPS_counter << ", updates: " << update_counter << std::endl;
+			FPS_counter = 0;
+			update_counter = 0;
+			FPS_clock.reset();
+		}
+		else FPS_counter++;
+		
 	}
 
 	glfwDestroyWindow(window);
