@@ -5,14 +5,14 @@
 
 SpriteRenderer::SpriteRenderer(glm::mat4 projection)
 {
-	this->colorShader = new Shader(std::vector<std::string>{"Shader/ColorVertex.vs", "Shader/ColorFragment.fs"}, std::vector<unsigned int>{GL_VERTEX_SHADER, GL_FRAGMENT_SHADER});
-	this->textureShader = new Shader(std::vector<std::string>{"Shader/TextureVertex.vs", "Shader/TextureFragment.fs"}, std::vector<unsigned int>{GL_VERTEX_SHADER, GL_FRAGMENT_SHADER});
+	colorShader.createFromFile("Shader/Color");
+	colorShader.bind();
+	colorShader.setUniformMat4fv("projection", projection);
 
-	this->colorShader->bind();
-	this->colorShader->setUniformMat4fv("projection", projection);
+	textureShader.createFromFile("Shader/Texture");
+	textureShader.bind();
+	textureShader.setUniformMat4fv("projection", projection);
 
-	this->textureShader->bind();
-	this->textureShader->setUniformMat4fv("projection", projection);
 
 
 	Call(glGenVertexArrays(1, &VAO));
@@ -43,13 +43,11 @@ SpriteRenderer::~SpriteRenderer()
 {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
-	delete colorShader;
-	delete textureShader;
 }
 
 void SpriteRenderer::draw(glm::vec2 position, glm::vec2 scale, glm::vec3 color, float rotation)
 {
-	colorShader->bind();
+	colorShader.bind();
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(position, 0.0f));
 
@@ -61,8 +59,8 @@ void SpriteRenderer::draw(glm::vec2 position, glm::vec2 scale, glm::vec3 color, 
 	}
 
 	model = glm::scale(model, glm::vec3(scale, 1.0f));
-	colorShader->setUniformMat4fv("model", model);
-	colorShader->setUniform3f("color", color);
+	colorShader.setUniformMat4fv("model", model);
+	colorShader.setUniform3f("color", color);
 
 
 	Call(glBindVertexArray(VAO));
@@ -70,9 +68,9 @@ void SpriteRenderer::draw(glm::vec2 position, glm::vec2 scale, glm::vec3 color, 
 	glBindVertexArray(0);
 }
 
-void SpriteRenderer::draw(Texture& texture, glm::vec2 position, glm::vec2 scale, glm::vec3 color, float rotation)
+void SpriteRenderer::draw(Texture& texture, glm::vec2 position, glm::vec2 scale, glm::vec3 color, int textureCount, int currTexture, float rotation)
 {
-	textureShader->bind();
+	textureShader.bind();
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(position, 0.0f));
 
@@ -84,8 +82,9 @@ void SpriteRenderer::draw(Texture& texture, glm::vec2 position, glm::vec2 scale,
 	}
 
 	model = glm::scale(model, glm::vec3(scale, 1.0f));
-	textureShader->setUniformMat4fv("model", model);
-	textureShader->setUniform3f("color", color);
+	textureShader.setUniformMat4fv("model", model);
+	textureShader.setUniform1i("textureCount", textureCount);
+	textureShader.setUniform1i("currTexture", currTexture);
 
 	glActiveTexture(GL_TEXTURE0);
 	texture.bind();
@@ -97,9 +96,9 @@ void SpriteRenderer::draw(Texture& texture, glm::vec2 position, glm::vec2 scale,
 
 void SpriteRenderer::draw(Texture* texture, glm::mat4x4 model, glm::vec3 color, int textureCount, int currTexture)
 {
-	textureShader->bind();
-	textureShader->setUniformMat4fv("model", model);
-	textureShader->setUniform3f("color", color);
+	textureShader.bind();
+	textureShader.setUniformMat4fv("model", model);
+	textureShader.setUniform3f("color", color);
 
 	glActiveTexture(GL_TEXTURE0);
 	texture->bind();
@@ -109,20 +108,3 @@ void SpriteRenderer::draw(Texture* texture, glm::mat4x4 model, glm::vec3 color, 
 	glBindVertexArray(0);
 }
 
-void SpriteRenderer::draw(DrawRequest request)
-{
-	glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
-
-	textureShader->bind();
-	textureShader->setUniformMat4fv("model", request.model);
-	textureShader->setUniform1i("currTexture", request.currTexture);
-	textureShader->setUniform1i("textureCount", request.textureCount);
-
-
-	glActiveTexture(GL_TEXTURE0);
-	request.texture->bind();
-
-	Call(glBindVertexArray(VAO));
-	Call(glDrawArrays(GL_TRIANGLES, 0, 6));
-	glBindVertexArray(0);
-}

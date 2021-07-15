@@ -1,4 +1,5 @@
 #include <iostream>
+#include "ResourceHolder.h"
 #include "App/App.h"
 #include "engine v0.01/Clock/Clock.h"
 #include "engine v0.01/Entity/Entity.h"
@@ -37,17 +38,10 @@ int main()
 	Call(glCullFace(GL_BACK));
 
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(WIDTH), static_cast<float>(HEIGHT), 0.0f, -1.0f, 1.0f);
+	ResourceHolder::get().Textures.load("tetris");
+
 	SpriteRenderer renderer(projection);
 
-	Texture tex1("tetris.png");
-
-	int FPS_counter = 0;
-	int update_counter = 0;
-	double lag = 0;
-	Clock tick_clock, FPS_clock;
-	std::queue<DrawRequest> drawQueue;
-
-	Entity tetrimino(glm::vec2(100.0f, 100.0f), glm::vec2(30.0f, 30.0f), 0.0f, &tex1, 2, 0);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -56,39 +50,15 @@ int main()
 		glfwGetWindowSize(window, width, height);
 		glViewport(0, 0, *width, *height);
 
+		
 
-
-		lag += tick_clock.getTime();
-		tick_clock.reset();
-		do
-		{
-			lag -= MILISECONDS_PER_UPDATE;
-			update_counter++;
-		} while (lag >= MILISECONDS_PER_UPDATE);
-
-		tetrimino.sendDrawRequest(drawQueue);
 
 		clear(0.0f, 255.0f, 255.0f, 1.0f);
-		//renderer.draw(tex1, glm::vec2(100.0f, 100.0f), glm::vec2(200.0f, 100.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-		while (!drawQueue.empty())
-		{
-			renderer.draw(drawQueue.front());
-			drawQueue.pop();
-		}
+		renderer.draw(ResourceHolder::get().Textures.get("tetris"), glm::vec2(100.0f, 100.0f), glm::vec2(200.0f, 100.0f), glm::vec3(1.0f, 1.0f, 1.0f), 6, 2);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
-
-
-		if (FPS_clock.getTime() > 1000.0f)
-		{
-			std::cout << "FPS: " << FPS_counter << ", updates: " << update_counter << std::endl;
-			FPS_counter = 0;
-			update_counter = 0;
-			FPS_clock.reset();
-		}
-		else FPS_counter++;
 		
 	}
 

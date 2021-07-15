@@ -8,8 +8,9 @@ class Texture
 	unsigned int textureBuffer;
 	int width, height;
 public:
-	Texture(std::string filename);
+	Texture();
 	~Texture();
+	void createFromFile(const std::string& filename);
 	void bind() const;
 };
 

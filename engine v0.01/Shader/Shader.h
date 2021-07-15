@@ -28,7 +28,8 @@ class Shader
 	unsigned int m_RendererID;
 public:
 	Shader() { m_RendererID = 0; };
-	Shader(const std::vector<std::string>& filepaths, const std::vector<unsigned int>& types);
+	Shader(const std::string& name);
+	void createFromFile(const std::string& name);
 	void bind() const;
 	void unbind() const;
 	void setUniform1i(const std::string& name, int v0);
