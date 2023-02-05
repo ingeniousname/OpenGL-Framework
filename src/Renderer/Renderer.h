@@ -1,6 +1,6 @@
 #pragma once
-#include "engine v0.01/Shader/Shader.h"
-#include "engine v0.01/Texture/Texture.h"
+#include "Shader/Shader.h"
+#include "Texture/Texture.h"
 #include "RenderInfo.h"
 
 

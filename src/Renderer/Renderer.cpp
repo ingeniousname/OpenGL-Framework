@@ -4,7 +4,7 @@
 Renderer::Renderer()
 {
 	colorShader.createFromFile("Shader/Color");
-	textureShader.createFromFile("Shader/Texture");
+	//textureShader.createFromFile("Shader/Texture");
 }
 
 Renderer::~Renderer()

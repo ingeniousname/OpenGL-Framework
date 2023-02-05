@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <map>
-#include <GLFW/glfw3.h>
+#include <glfw-3.3.8/include/GLFW/glfw3.h>
 
 class KeyInput
 {

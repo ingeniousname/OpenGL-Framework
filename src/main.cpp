@@ -1,7 +1,7 @@
 #include <iostream>
-#include "ResourceHolder.h"
+#include "ResourceManager/ResourceHolder.h"
 #include "App/App.h"
-#include "engine v0.01/Clock/Clock.h"
+#include "Clock/Clock.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 600;

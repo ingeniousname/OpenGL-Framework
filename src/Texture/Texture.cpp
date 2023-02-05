@@ -1,6 +1,7 @@
 #include "Texture.h"
 #define STB_IMAGE_IMPLEMENTATION
-#include "engine v0.01/Vendor/stb_image.h"
+#include "Vendor/stb_image.h"
+#include "glew-2.1.0/include/GL/glew.h"
 
 Texture::Texture()
 {

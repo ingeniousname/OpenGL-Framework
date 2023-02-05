@@ -1,4 +1,6 @@
 #include "App.h"
+#include "Sample/sample_triangle.h"
+
 
 App::App(int width, int height) : camera(width, height, true)
 {
@@ -20,6 +22,7 @@ App::App(int width, int height) : camera(width, height, true)
 	Call(glCullFace(GL_BACK));
 
 	renderer = new Renderer;
+    sample = get_sample_triangle_data();
 
 }
 
@@ -38,12 +41,13 @@ void App::clear(float r, float g, float b, float a)
 
 void App::update()
 {
-	renderer->updateProjectionViewMatrix(camera.getProjectionViewMatrix());
+	//renderer->updateProjectionViewMatrix(camera.getProjectionViewMatrix());
 }
 
 void App::draw()
 {
 	clear(0.f, 0.f, 0.f, 0.f);
+    renderer->draw(sample);
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 }
