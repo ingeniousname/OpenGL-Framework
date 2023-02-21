@@ -1,12 +1,14 @@
 #include "App.h"
-#include "Sample/sample_triangle.h"
+#include "src/Sample/sample_triangle.h"
+#include "src/OBJLoader/OBJLoader.h"
+#include <cmath>
 
 
-App::App(int width, int height) : camera(width, height, true)
+App::App(int width, int height) : camera(width, height, false)
 {
 	if (!glfwInit())
 		std::cout << "error initializing glfw" << std::endl;
-	window = glfwCreateWindow(width, height, "my window", NULL, NULL);
+	window = glfwCreateWindow(width, height, "my window", nullptr, nullptr);
 	if (!window)
 	{
 		std::cout << "error with the window creation" << std::endl;
@@ -19,11 +21,13 @@ App::App(int width, int height) : camera(width, height, true)
 
 	Call(glEnable(GL_TEXTURE_2D));
 	Call(glEnable(GL_DEPTH_TEST));
+	//Call(glEnable(GL_CULL_FACE));
 	Call(glCullFace(GL_BACK));
 
 	renderer = new Renderer;
-    sample = get_sample_triangle_data();
-
+    //entity.setRenderInfo(get_sample_triangle_data());
+    VertexData data = getVertexDataFromOBJ("res/models/untitled.obj");
+    entity.setRenderInfo(buildRenderInfoFromData(data));
 }
 
 App::~App()
@@ -41,13 +45,16 @@ void App::clear(float r, float g, float b, float a)
 
 void App::update()
 {
-	//renderer->updateProjectionViewMatrix(camera.getProjectionViewMatrix());
+	renderer->updateProjectionViewMatrix(camera.getProjectionViewMatrix({0, 0, -20}));
+    entity.update({0, 0, 0}, {fmod(100 * glfwGetTime(), 360), 0, 0}, {1, 1, 1});
+	//renderer->updateProjectionViewMatrix(glm::mat4x4(1.0f));
+
 }
 
 void App::draw()
 {
 	clear(0.f, 0.f, 0.f, 0.f);
-    renderer->draw(sample);
+    renderer->draw(entity);
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 }

@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Renderer/Renderer.h"
-#include "ResourceManager/ResourceHolder.h"
-#include "Camera/Camera.h"
+#include "src/Renderer/Renderer.h"
+#include "src/ResourceManager/ResourceHolder.h"
+#include "src/Camera/Camera.h"
+#include "src/Entity/Entity.h"
 
 
 class App
@@ -10,8 +11,7 @@ class App
 	Renderer* renderer;
 	GLFWwindow* window;
 	Camera camera;
-    RenderInfo sample;
-	
+	Entity entity;
 
 public:
 	App(int width, int height);

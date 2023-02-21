@@ -13,12 +13,13 @@ void Camera::updateVectors(glm::vec3 direction)
 
 Camera::Camera(int width, int height, bool is2D)
 {
+    this->is2D = is2D;
     cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
     cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
     worldUp = cameraUp;
     cameraRight = glm::normalize(glm::cross(cameraFront, worldUp));
 
-    if (is2D)
+    if (this->is2D)
         projection = glm::ortho(0.f, static_cast<float>(width), static_cast<float>(height), 0.f, -1.f, 1.f);
     else projection = glm::perspective(glm::radians(45.0f), static_cast<float>(width) / static_cast<float>(height), 0.01f, 200.0f);
 }

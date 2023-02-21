@@ -1,7 +1,7 @@
 #pragma once
 #include "ResourceManager.h"
-#include "Shader/Shader.h"
-#include "Texture/Texture.h"
+#include "src/Shader/Shader.h"
+#include "src/Texture/Texture.h"
 
 
 class ResourceHolder
