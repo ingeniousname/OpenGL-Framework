@@ -2,6 +2,13 @@
 #include "GL/glew.h"
 #include <iostream>
 
+RenderInfo createFromFile(const std::string& filepath)
+{
+    VertexData data = getVertexDataFromOBJ(filepath);
+    return buildRenderInfoFromData(data);
+}
+
+
 VertexData getVertexDataFromOBJ(const std::string& filepath)
 {
     VertexData data;
@@ -101,6 +108,6 @@ RenderInfo buildRenderInfoFromData(const VertexData& data)
 
 
     RenderInfo result;
-    result.generate(final_data, indicies, {3, 2, 3});
+    result.generate(final_data, indicies, {{3, GL_FLOAT}, {2, GL_FLOAT}, {3, GL_FLOAT}});
     return result;
 }

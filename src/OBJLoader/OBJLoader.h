@@ -16,6 +16,6 @@ struct VertexData
     std::vector<unsigned int> vertexBuildData;
 };
 
-
+RenderInfo createFromFile(const std::string& filepath);
 VertexData getVertexDataFromOBJ(const std::string& filepath);
 RenderInfo buildRenderInfoFromData(const VertexData& data);

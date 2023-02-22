@@ -2,8 +2,9 @@
 #include "GL/glew.h"
 #include <numeric>
 #include <functional>
+#include "src/OBJLoader/OBJLoader.h"
 
-void RenderInfo::generate(std::vector<float> verticiesData, std::vector<unsigned int> indiciesData, std::vector<unsigned> structure)
+void RenderInfo::generate(std::vector<float> verticiesData, std::vector<unsigned int> indiciesData, std::vector<std::pair<unsigned,unsigned>> structure)
 {
     glGenVertexArrays(1, &this->VAO);
     unsigned VBO;
@@ -11,13 +12,15 @@ void RenderInfo::generate(std::vector<float> verticiesData, std::vector<unsigned
     glBindVertexArray(this->VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * verticiesData.size(), verticiesData.data(), GL_STATIC_DRAW);
-    unsigned vertexDataSize = std::accumulate(std::begin(structure), std::end(structure), 0, std::plus<>());
+    unsigned vertexDataSize = std::accumulate(std::begin(structure), std::end(structure), 0, [](unsigned x, std::pair<unsigned, unsigned> p) {
+        return x + p.first;
+    });
     unsigned vertexDataOffset = 0;
     for(int i = 0; i < structure.size(); i++)
     {
         glEnableVertexAttribArray(i);
-        glVertexAttribPointer(i, structure[i], GL_FLOAT, GL_FALSE, vertexDataSize * sizeof(float), (const void*)vertexDataOffset);
-        vertexDataOffset += structure[i];
+        glVertexAttribPointer(i, structure[i].first, structure[i].second, GL_FALSE, vertexDataSize * sizeof(float), (const void*)vertexDataOffset);
+        vertexDataOffset += structure[i].first;
     }
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -28,4 +31,10 @@ void RenderInfo::generate(std::vector<float> verticiesData, std::vector<unsigned
 
     glBindVertexArray(0);
     this->numIndicies = indiciesData.size();
+}
+
+void RenderInfo::createFromFile(const std::string& filepath)
+{
+    VertexData data = getVertexDataFromOBJ(filepath);
+    *this = buildRenderInfoFromData(data);
 }

@@ -21,13 +21,19 @@ App::App(int width, int height) : camera(width, height, false)
 
 	Call(glEnable(GL_TEXTURE_2D));
 	Call(glEnable(GL_DEPTH_TEST));
-	//Call(glEnable(GL_CULL_FACE));
+	Call(glEnable(GL_CULL_FACE));
 	Call(glCullFace(GL_BACK));
 
-	renderer = new Renderer;
+    ResourceHolder::get().Models.setFolder("res/Models/");
+    ResourceHolder::get().Shaders.setFolder("src/Shader/");
+    ResourceHolder::get().Shaders.load("Color");
+
+
+	renderer = new Renderer(ResourceHolder::get().Shaders.get("Color"));
+    ResourceHolder::get().Models.load("untitled.obj");
     //entity.setRenderInfo(get_sample_triangle_data());
-    VertexData data = getVertexDataFromOBJ("res/models/untitled.obj");
-    entity.setRenderInfo(buildRenderInfoFromData(data));
+    //VertexData data = getVertexDataFromOBJ("res/models/untitled.obj");
+    entity.setRenderInfo(ResourceHolder::get().Models.get("untitled.obj"));
 }
 
 App::~App()
@@ -45,7 +51,7 @@ void App::clear(float r, float g, float b, float a)
 
 void App::update()
 {
-	renderer->updateProjectionViewMatrix(camera.getProjectionViewMatrix({0, 0, -20}));
+	renderer->getShader().setUniformMat4fv("VP", camera.getProjectionViewMatrix({0, 0, -20}));
     entity.update({0, 0, 0}, {fmod(100 * glfwGetTime(), 360), 0, 0}, {1, 1, 1});
 	//renderer->updateProjectionViewMatrix(glm::mat4x4(1.0f));
 

@@ -7,14 +7,14 @@ class Entity;
 
 class Renderer
 {
-	Shader textureShader, colorShader;
-	void draw(const RenderInfo& drawData);
+	Shader* shader;
 public:
-	Renderer();
+	explicit Renderer(Shader& _shader);
 	~Renderer();
     void draw(const Entity& e);
+	void draw(const RenderInfo& drawData);
 	void enable2D();
 	void enable3D();
-	void updateProjectionViewMatrix(glm::mat4x4 VP);
+    Shader& getShader() {return *shader;}
 };
 
