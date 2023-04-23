@@ -19,7 +19,7 @@ void RenderInfo::generate(std::vector<float> verticiesData, std::vector<unsigned
     for(int i = 0; i < structure.size(); i++)
     {
         glEnableVertexAttribArray(i);
-        glVertexAttribPointer(i, structure[i].first, structure[i].second, GL_FALSE, vertexDataSize * sizeof(float), (const void*)vertexDataOffset);
+        glVertexAttribPointer(i, structure[i].first, structure[i].second, GL_FALSE, vertexDataSize * sizeof(float), (const void*)(sizeof(float) * vertexDataOffset));
         vertexDataOffset += structure[i].first;
     }
 

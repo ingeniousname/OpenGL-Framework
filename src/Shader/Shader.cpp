@@ -20,6 +20,8 @@ bool glCheckError()
 std::string read_from_file(const std::string& filename)
 {
     std::ifstream ifs(filename, std::ios::in);
+    if(ifs.fail())
+        std::cerr << "Error loading shader from file " << filename << "\n";
     std::stringstream ss;
     ss << ifs.rdbuf();
     return ss.str();

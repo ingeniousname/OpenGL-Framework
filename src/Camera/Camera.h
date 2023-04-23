@@ -1,7 +1,7 @@
 #pragma once
 #include "Vendor/glm/glm/glm.hpp"
 #include "Vendor/glm/glm/gtx/transform.hpp"
-#include <glfw-3.3.8/include/GLFW/glfw3.h>
+#include <GLFW/glfw3.h>
 
 class Camera
 {

@@ -6,8 +6,8 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
-#include <glew-2.1.0/include/GL/glew.h>
-#include <glfw-3.3.8/include/GLFW/glfw3.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include "Vendor/glm/glm/glm.hpp"
 #include "Vendor/glm/glm/gtx/transform.hpp"
 
