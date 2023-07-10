@@ -1,13 +1,9 @@
 #include "Renderer.h"
 #include "src/Entity/Entity.h"
 
-Renderer::Renderer(Shader& _shader)
+Renderer::Renderer(std::shared_ptr<Shader>& _shader)
 {
-    shader = &_shader;
-}
-
-Renderer::~Renderer()
-{
+    shader = std::shared_ptr<Shader>(_shader);
 }
 
 void Renderer::draw(const RenderInfo& drawData)

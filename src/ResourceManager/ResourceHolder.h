@@ -10,8 +10,10 @@ private:
 	ResourceHolder();
 public:
 	static ResourceHolder& get();
-	ResourceManager<Texture> Textures;
-	ResourceManager<Shader> Shaders;
-	ResourceManager<RenderInfo> Models;
+
+	UniqueResourceManager<Texture> Textures;
+	UniqueResourceManager<RenderInfo> Models;
+
+	SharedResourceManager<Shader> Shaders;
 };
 

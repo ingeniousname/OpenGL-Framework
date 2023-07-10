@@ -5,11 +5,21 @@
 #include "src/Camera/Camera.h"
 #include "src/Entity/Entity.h"
 
+#include <memory>
+
+class GLFWwindowDeleter
+{
+public:
+    void operator()(GLFWwindow* ptr)
+    {
+        glfwDestroyWindow(ptr);
+    }
+};
 
 class App
 {
-	Renderer* renderer;
-	GLFWwindow* window;
+	std::unique_ptr<Renderer> renderer;
+    std::unique_ptr<GLFWwindow, GLFWwindowDeleter> window;
 	Camera camera;
 	Entity entity;
 
@@ -19,6 +29,6 @@ public:
 	void clear(float r, float g, float b, float a);
 	void update();
 	void draw();
-	[[nodiscard]] bool isClosed() const { return glfwWindowShouldClose(window); };
+	[[nodiscard]] bool isClosed() const { return glfwWindowShouldClose(window.get()); };
 };
 

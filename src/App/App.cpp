@@ -1,5 +1,4 @@
 #include "App.h"
-#include "src/Sample/sample_triangle.h"
 #include "src/OBJLoader/OBJLoader.h"
 #include <cmath>
 
@@ -8,12 +7,12 @@ App::App(int width, int height) : camera(width, height, false)
 {
 	if (!glfwInit())
 		std::cout << "error initializing glfw" << std::endl;
-	window = glfwCreateWindow(width, height, "my window", nullptr, nullptr);
+	window = std::unique_ptr<GLFWwindow, GLFWwindowDeleter>(glfwCreateWindow(width, height, "my window", nullptr, nullptr));
 	if (!window)
 	{
 		std::cout << "error with the window creation" << std::endl;
 	}
-	Call(glfwMakeContextCurrent(window));
+	Call(glfwMakeContextCurrent(window.get()));
 
 	GLenum status = glewInit();
 	if (status != GLEW_OK)
@@ -25,21 +24,18 @@ App::App(int width, int height) : camera(width, height, false)
 	Call(glCullFace(GL_BACK));
 
     ResourceHolder::get().Models.setFolder("res/Models/");
+    ResourceHolder::get().Models.load("untitled.obj");
+
     ResourceHolder::get().Shaders.setFolder("src/Shader/");
     ResourceHolder::get().Shaders.load("Color");
 
 
-	renderer = new Renderer(ResourceHolder::get().Shaders.get("Color"));
-    ResourceHolder::get().Models.load("untitled.obj");
-    //entity.setRenderInfo(get_sample_triangle_data());
-    //VertexData data = getVertexDataFromOBJ("res/models/untitled.obj");
+	renderer = std::make_unique<Renderer>(ResourceHolder::get().Shaders.getPointer("Color"));
     entity.setRenderInfo(ResourceHolder::get().Models.get("untitled.obj"));
 }
 
 App::~App()
 {
-	delete renderer;
-	glfwDestroyWindow(window);
 	glfwTerminate();
 }
 
@@ -53,7 +49,6 @@ void App::update()
 {
 	renderer->getShader().setUniformMat4fv("VP", camera.getProjectionViewMatrix({0, 0, -20}));
     entity.update({0, 0, 0}, {fmod(100 * glfwGetTime(), 360), 0, 0}, {1, 1, 1});
-	//renderer->updateProjectionViewMatrix(glm::mat4x4(1.0f));
 
 }
 
@@ -61,6 +56,6 @@ void App::draw()
 {
 	clear(0.f, 0.f, 0.f, 0.f);
     renderer->draw(entity);
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(window.get());
 	glfwPollEvents();
 }

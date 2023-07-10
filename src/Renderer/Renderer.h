@@ -3,14 +3,15 @@
 #include "src/Texture/Texture.h"
 #include "RenderInfo.h"
 
+#include <memory>
+
 class Entity;
 
 class Renderer
 {
-	Shader* shader;
+	std::shared_ptr<Shader> shader;
 public:
-	explicit Renderer(Shader& _shader);
-	~Renderer();
+	explicit Renderer(std::shared_ptr<Shader>& _shader);
     void draw(const Entity& e);
 	void draw(const RenderInfo& drawData);
 	void enable2D();
