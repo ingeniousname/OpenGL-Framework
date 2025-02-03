@@ -23,10 +23,10 @@ App::App(int width, int height) : camera(width, height, false)
 	Call(glEnable(GL_CULL_FACE));
 	Call(glCullFace(GL_BACK));
 
-    ResourceHolder::get().Models.setFolder("res/Models/");
+	ResourceHolder::get().Models.setFolder("res/models/");
     ResourceHolder::get().Models.load("untitled.obj");
 
-    ResourceHolder::get().Shaders.setFolder("src/Shader/");
+    ResourceHolder::get().Shaders.setFolder("");
     ResourceHolder::get().Shaders.load("Color");
 
 
